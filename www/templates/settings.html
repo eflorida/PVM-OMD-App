@@ -1,0 +1,24 @@
+<div class="modal">
+  <ion-header-bar>
+    <h1 class="title">Settings</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeSettings()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content ng-controller="SavedArticlesCtrl">
+    <div
+            class="card"
+            ng-show="localSavedArticlesJSON[0].issueDates.length < 1">
+      <h3>No Saved Articles at this time</h3>
+      <p>Go to the current issue and click "Save" when viewing an article to save for offline reading.</p>
+    </div>
+    <button
+      class="button button-assertive button-full"
+      ng-click="showConfirm();"
+      ng-hide="localSavedArticlesJSON[0].issueDates.length < 1"
+      >Delete All Saved Articles
+    </button>
+
+  </ion-content>
+</div>
+

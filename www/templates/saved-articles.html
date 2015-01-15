@@ -1,0 +1,58 @@
+<ion-view title="Saved Articles">
+	<ion-nav-buttons side="left">
+		<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+	</ion-nav-buttons>
+	<ion-content class="has-header">
+		<ion-list class="list current-issue">
+			<div ng-repeat="issuedates in savedArticlesJSON[0].issueDates" class="savedArticleMonth">
+				<div class="item item-divider">
+					<h3>{{savedArticlesJSON[0].displayDates[$index]}}</h3>
+				</div>
+				<ion-item
+					class="item"
+					ng-repeat="articleSet in savedArticlesJSON | filter : issueDate : 201412"
+					href="#/app/savedissue-article/{{articleSet.issueYear}}/{{articleSet.issueMonth}}/{{articleSet.fileName}}/{{articleSet.articleID}}"
+				>
+					<h4>{{articleSet.title}}</h4>
+					<h5>{{articleSet.subTitle}}</h5>
+					<p><em>By:</em> {{articleSet.author}}</p>
+
+				</ion-item>
+				<!--TODO remove after testing
+				<div class="item item-divider">
+					<h3>Testing section - No Filter</h3>
+				</div>
+				<ion-item
+						class="item"
+						ng-repeat="articleSet in savedArticlesJSON"
+						href="#/app/savedissue-article/{{articleSet.issueYear}}/{{articleSet.issueMonth}}/{{articleSet.fileName}}/{{articleSet.articleID}}"
+						>
+					<h6>{{articleSet.issueDate}}</h6>
+					<h4>{{articleSet.title}}</h4>
+					<h5>{{articleSet.subTitle}}</h5>
+					<p><em>By:</em> {{articleSet.author}}</p>
+
+				</ion-item>-->
+			</div>
+		</ion-list>
+
+		<div
+			class="card"
+			ng-show="savedArticlesJSON[0].issueDates.length < 1">
+			<h3>No Saved Articles at this time</h3>
+			<p>Go to the current issue and click "Save" when viewing an article to save for offline reading.</p>
+
+			<ion-item nav-clear class="nav-clear" href="#/app/currentissue">
+				<button
+						class="button button-block button-positive"
+						>Current Issue</button>
+			</ion-item>
+		</div>
+
+		<button
+				class="button button-assertive button-full"
+				ng-click="showConfirm();"
+				ng-hide="savedArticlesJSON[0].issueDates.length < 1"
+				>Delete All Saved Articles</button>
+	</ion-content>
+</ion-view>
