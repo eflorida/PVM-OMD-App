@@ -15,7 +15,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       StatusBar.styleDefault();
     }
 
-    //initPushwoosh(); TODO uncomment for production
+    //initPushwoosh(); //TODO uncomment for production
 
     //Set the rootScope variables for persistence across controllers and nav states
     $rootScope.currentIssueJSON = JSON.parse(window.localStorage['localCurrentIssue'] || '{}');

@@ -15,10 +15,9 @@
 				<h3>{{currentIssueJSON[0].issueMonth}}, {{currentIssueJSON[0].issueYear}}</h3>
 				<p>Read the latest Issue</p>
 			</ion-item>
-			<button ng-hide="currentIssueJSON[0].isLatest" class="button button-block nav-clear fade-in" nav-clear href="#/app/currentissue">
-					New Issue Available - Download Now
-			</button>
-			<h6>{{currentIssueJSON[0].isLatest}}</h6>
+			<ion-item nav-clear class="nav-clear fade-in" href="#/app/currentissue" ng-hide="currentIssueJSON[0].isLatest">
+				<i class="icon ion-android-book"></i> Read Current Issue
+			</ion-item>
 		</div>
 		<div class="item item-text-wrap">
 			<div class="item item-divider" >
