@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ab1e6c4-2003-4edd-b2a9-26a4db429b3c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/app.js" afterPath="$PROJECT_DIR$/www/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/index.html" afterPath="$PROJECT_DIR$/www/templates/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.xml" afterPath="$PROJECT_DIR$/config.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="OMD.iws" />
@@ -64,21 +63,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="config.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/config.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="840">
-              <caret line="0" column="55" selection-start-line="0" selection-start-column="55" selection-end-line="0" selection-end-column="55" />
+            <state vertical-scroll-proportion="0.073891625" vertical-offset="0" max-vertical-offset="840">
+              <caret line="3" column="57" selection-start-line="3" selection-start-column="57" selection-end-line="3" selection-end-column="57" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41025642" vertical-offset="0" max-vertical-offset="585">
-              <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+            <state vertical-scroll-proportion="-11.875" vertical-offset="0" max-vertical-offset="570">
+              <caret line="19" column="23" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -131,8 +130,8 @@
         <option value="$PROJECT_DIR$/www/js/controllers.js" />
         <option value="$PROJECT_DIR$/www/css/ionic.app.css" />
         <option value="$PROJECT_DIR$/www/js/app.js" />
-        <option value="$PROJECT_DIR$/config.xml" />
         <option value="$PROJECT_DIR$/www/templates/index.html" />
+        <option value="$PROJECT_DIR$/config.xml" />
       </list>
     </option>
   </component>
@@ -495,14 +494,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/css/ionic.app.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.024630541" vertical-offset="0" max-vertical-offset="609">
-          <caret line="1" column="3" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/templates/saved-articles.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.75" vertical-offset="0" max-vertical-offset="975">
@@ -543,14 +534,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="840">
-          <caret line="0" column="55" selection-start-line="0" selection-start-column="55" selection-end-line="0" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/templates/currentissue.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-17.5" vertical-offset="0" max-vertical-offset="885">
@@ -567,10 +550,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/www/css/ionic.app.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.024630541" vertical-offset="0" max-vertical-offset="609">
+          <caret line="1" column="3" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/www/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41025642" vertical-offset="0" max-vertical-offset="585">
-          <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+        <state vertical-scroll-proportion="-11.875" vertical-offset="0" max-vertical-offset="570">
+          <caret line="19" column="23" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.073891625" vertical-offset="0" max-vertical-offset="840">
+          <caret line="3" column="57" selection-start-line="3" selection-start-column="57" selection-end-line="3" selection-end-column="57" />
           <folding />
         </state>
       </provider>
