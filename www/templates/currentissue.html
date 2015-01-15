@@ -42,7 +42,7 @@
 			<ion-item
 			class="item departments"
 			href="#/app/currentissue-article/{{metaContentSet.issueYear}}/{{metaContentSet.issueMonth}}/{{departmentsContentSet.fileName}}/{{departmentsContentSet.isDownloaded}}/{{departmentsContentSet.articleID}}"
-			ng-repeat="departmentsContentSet in currentIssueJSON | filter:category='Department' | filter:articleID"
+			ng-repeat="departmentsContentSet in currentIssueJSON | filter:category='Department' | filter:articleID track by departmentsContentSet.articleID"
 			>
 				<h4><i class="icon ion-android-star" ng-show="departmentsContentSet.isDownloaded"></i><i class="icon ion-android-star invalid-icon" ng-hide="departmentsContentSet.isDownloaded"></i>{{departmentsContentSet.title}}</h4>
 				<h5>{{departmentsContentSet.subTitle}}</h5>

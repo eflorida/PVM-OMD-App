@@ -6,37 +6,13 @@ angular.module('starter.controllers', [])
 .controller('HomeCtrl', function($scope) {
   console.log('HomeCtrl started...');
 
-  //$scope.currentIssueLocalJSON = function(){
-  //  return $rootScope.currentIssueJSON;
-  //};
-  //
-  ////Automatically load local JSON from rootScope
-  //$scope.parsedLocalJSON = $scope.currentIssueLocalJSON();
-
-  //If the file already exists in local storage, use it
-  //$scope.localJSON = function(){
-  //  //Try to load from local storage on page load
-  //  console.log('localJSON: Initial page load');
-  //  $rootScope.localCurrentIssueJSON = JSON.parse(window.localStorage['localCurrentIssue'] || '{}');
-  //};
-
 })
 
-.controller('CurrentIssueCtrl', function($scope, $http, $localstorage, JSONPService, $ionicLoading) {
+.controller('CurrentIssueCtrl', function($rootScope, $scope, $http, $localstorage, JSONPService, $ionicLoading) {
   console.log('CurrentIssueCtrl started...');
 
   //Global variable for testing
   $scope.devMode = false; //TODO remove for production
-      
-  //If the file already exists in local storage, use it
-  //$scope.localJSON = function(){
-  //  //Try to load from local storage on page load
-  //  $rootScope.localCurrentIssueJSON = JSON.parse(window.localStorage['localCurrentIssue'] || '{}');
-  //  console.log('localJSON: Initial page load - '+JSON.stringify($rootScope.localCurrentIssueJSON));
-  //
-  //  //Automatically compare local JSON with server
-  //  $scope.compareJSON();
-  //};
 
   //Load JSON file from remote server and save to local storage
   $scope.getJSONP = function() {
@@ -49,7 +25,7 @@ angular.module('starter.controllers', [])
           window.localStorage['localCurrentIssue'] = JSON.stringify(response.data);
 
           //Parse local storage string as JSON
-          $scope.currentIssueJSON = JSON.parse(window.localStorage['localCurrentIssue'] || '{}');
+          $rootScope.currentIssueJSON = JSON.parse(window.localStorage['localCurrentIssue'] || '{}');
 
           //TODO Implement cover image download
           //download the cover image
@@ -124,13 +100,12 @@ angular.module('starter.controllers', [])
         //  $scope.localImgFile = response;
         //});
 
-
   };
 
   //Get JSONP from remote server, compare date with local storage version, add download
   //button if newer
   $scope.compareJSON = function(){
-    if ($scope.currentIssueJSON[0] === undefined) {
+    if ($rootScope.currentIssueJSON[0] === undefined) {
       //There is no local file, so must get remote JSONP
       console.log('compareJSON: local issueDate undefined, get remote, nothing to compare')
       //HTTP Get with JSONP callback
@@ -142,7 +117,7 @@ angular.module('starter.controllers', [])
         window.localStorage['localCurrentIssue'] = JSON.stringify(response.data);
 
         //Parse local storage string as JSON
-        $scope.currentIssueJSON = JSON.parse(window.localStorage['localCurrentIssue'] || '{}');
+        $rootScope.currentIssueJSON = JSON.parse(window.localStorage['localCurrentIssue'] || '{}');
       });
     } else {
       //HTTP Get with JSONP callback
@@ -152,12 +127,12 @@ angular.module('starter.controllers', [])
         //Save response to variable for comparing to local storage version
         $scope.serverLatestJSON = response.data;
         console.log('serverJSON=>'+$scope.serverLatestJSON[0].issueDate);
-        console.log('localJSON=>'+$scope.currentIssueJSON[0].issueDate);
+        console.log('localJSON=>'+$rootScope.currentIssueJSON[0].issueDate);
 
-        if ($scope.currentIssueJSON[0].issueDate < $scope.serverLatestJSON[0].issueDate || $scope.devMode === true) { //TODO remove 'OR' statement for production
+        if ($rootScope.currentIssueJSON[0].issueDate < $scope.serverLatestJSON[0].issueDate || $scope.devMode === true) { //TODO remove 'OR' statement for production
           //The server file is newer, update isLatest value to reveal download button
           console.log('Update isLatest to false');
-          $scope.currentIssueJSON[0].isLatest = false;
+          $rootScope.currentIssueJSON[0].isLatest = false;
         } else {
           console.log('Local JSON IS the latest, isLatest remains true');
         };
@@ -170,7 +145,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('CurrentIssueArticleCtrl', function($scope, $http, $stateParams, $ionicModal, $filter) {
+.controller('CurrentIssueArticleCtrl', function($rootScope, $scope, $http, $stateParams, $ionicModal, $filter) {
   console.log('CurrentIssueArticleCtrl started...');
 
   //Pass article URL data to the ng-include for currentIssue-article.html
@@ -180,17 +155,12 @@ angular.module('starter.controllers', [])
   $scope.saveArticle = function(){
     console.log('saveArticle started...');
 
-    ////Parse local saved articles JSON - create empty object if file doesn't exist
-    //$scope.localSavedArticlesJSON = JSON.parse(window.localStorage['localSavedArticles'] || '{}');
-    ////Get Current Issue metaData
-    //$scope.localCurrentIssueJSON = JSON.parse(window.localStorage['localCurrentIssue'] || '{}');
-
-    //filter localCurrentIssueJSON so only the current article content exists
-    $scope.filteredArticleArray = $filter('filter')($scope.currentIssueJSON, $scope.currentIssueJSON.articleID = $scope.articleData.articleID);
+    //filter localcurrentIssueJSON so only the current article content exists
+    $scope.filteredArticleArray = $filter('filter')($rootScope.currentIssueJSON, $rootScope.currentIssueJSON.articleID = $scope.articleData.articleID);
     //Add current Article metaData to filtered array
-    $scope.filteredArticleArray[0]["issueDate"] = $scope.currentIssueJSON[0].issueDate;
-    $scope.filteredArticleArray[0]["issueMonth"] = $scope.currentIssueJSON[0].issueMonth;
-    $scope.filteredArticleArray[0]["issueYear"] = $scope.currentIssueJSON[0].issueYear;
+    $scope.filteredArticleArray[0]["issueDate"] = $rootScope.currentIssueJSON[0].issueDate;
+    $scope.filteredArticleArray[0]["issueMonth"] = $rootScope.currentIssueJSON[0].issueMonth;
+    $scope.filteredArticleArray[0]["issueYear"] = $rootScope.currentIssueJSON[0].issueYear;
     console.log('filteredArticleArray = '+JSON.stringify($scope.filteredArticleArray));
 
     if ($scope.filteredArticleArray[0].articleID) {
@@ -198,59 +168,54 @@ angular.module('starter.controllers', [])
       console.log('filtered articleID exists, value= '+$scope.articleData.articleID);
       $scope.articleData.isDownloaded = 'true';
       //push isDownloaded = true in currentIssueJSON[i] where articleID=$scope.articleData.articleID
-      angular.forEach($scope.currentIssueJSON, function(u, i){
+      angular.forEach($rootScope.currentIssueJSON, function(u, i){
         if (u.articleID === $scope.articleData.articleID){
           console.log('articleID matches CurrentIssue, update THIS isDownloaded to true');
           //TODO save file to local storage
           //Update rootScope object
-          $scope.currentIssueJSON[i].isDownloaded = true;
+          $rootScope.currentIssueJSON[i].isDownloaded = true;
           //Save updated JSON file to localStorage
-          window.localStorage['localCurrentIssue'] = JSON.stringify($scope.currentIssueJSON);
+          window.localStorage['localCurrentIssue'] = JSON.stringify($rootScope.currentIssueJSON);
         }
       });
 
       ////Check if any article with same issueDate has already been saved - aka, issueDate exists in savedArticle issueDates
       $scope.newArticleIssueDate = true;
-      console.log('$scope.savedArticlesJSON[0].issueDates.length='+$scope.savedArticlesJSON[0].issueDates.length);
-      if($scope.savedArticlesJSON[0].issueDates.length > 0){
-        angular.forEach($scope.savedArticlesJSON[0].issueDates, function(u, i){
+      console.log('$rootScope.savedArticlesJSON[0].issueDates.length='+$rootScope.savedArticlesJSON[0].issueDates.length);
+      if($rootScope.savedArticlesJSON[0].issueDates.length > 0){
+        angular.forEach($rootScope.savedArticlesJSON[0].issueDates, function(u, i){
           console.log('Current issueDate in saved file: '+u);
-          if ($scope.currentIssueJSON[0].issueDate === u) {
+          if ($rootScope.currentIssueJSON[0].issueDate === u) {
             $scope.newArticleIssueDate = false;
             console.log('article issue date already exists in local saved file, no need to concat');
 
           };
         });
       };
-
-
       if ($scope.newArticleIssueDate) {
         console.log('First file saved with this issueDate, so add date, month, year, then add to localSaved issueDates and displayDates');
 
-        $scope.savedArticlesJSON[0].issueDates.push($scope.currentIssueJSON[0].issueDate);
-        $scope.savedArticlesJSON[0].displayDates.push($scope.currentIssueJSON[0].issueMonth+', '+$scope.currentIssueJSON[0].issueYear);
+        $rootScope.savedArticlesJSON[0].issueDates.push($rootScope.currentIssueJSON[0].issueDate);
+        $rootScope.savedArticlesJSON[0].displayDates.push($rootScope.currentIssueJSON[0].issueMonth+', '+$rootScope.currentIssueJSON[0].issueYear);
 
-        window.localStorage['localSavedArticles'] = JSON.stringify($scope.savedArticlesJSON);
+        window.localStorage['localSavedArticles'] = JSON.stringify($rootScope.savedArticlesJSON);
         console.log('issueDates and displayDates updated!');
       }
 
       $scope.newArticleID = true;
       //Check to see if article with same ID already exists in savedArticlesJSON, if not, concat array
       console.log('checking if filteredArticleArray.articleID is equal to any savedArticleIDs - current val='+JSON.stringify($scope.filteredArticleArray[0].articleID));
-      if($scope.savedArticlesJSON.length > 1){
-        angular.forEach($scope.savedArticlesJSON, function(u, i){
+      if($rootScope.savedArticlesJSON.length > 1){
+        angular.forEach($rootScope.savedArticlesJSON, function(u, i){
           if ($scope.filteredArticleArray[0].articleID === u.articleID) {
             $scope.newArticleID = false;
-            console.log('NOT a new articleID, localSaved array: '+JSON.stringify($scope.savedArticlesJSON));
+            console.log('NOT a new articleID, localSaved array: '+JSON.stringify($rootScope.savedArticlesJSON));
           };
         });
       }
-
-
       if ($scope.newArticleID) {
-        $scope.savedArticlesJSON = $scope.savedArticlesJSON.concat($scope.filteredArticleArray);
-        window.localStorage['localSavedArticles'] = JSON.stringify($scope.savedArticlesJSON);
-        console.log('Locally saved Array - '+JSON.stringify($scope.savedArticlesJSON));
+        $rootScope.savedArticlesJSON = $rootScope.savedArticlesJSON.concat($scope.filteredArticleArray);
+        window.localStorage['localSavedArticles'] = JSON.stringify($rootScope.savedArticlesJSON);
       }
     }
   };
@@ -283,8 +248,11 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('SavedArticlesCtrl', function($scope, $ionicPopup) {
+.controller('SavedArticlesCtrl', function($rootScope, $scope, $ionicPopup) {
   console.log('SavedArticlesCtrl started...');
+
+  $scope.savedArticleObject = $rootScope.savedArticlesJSON;
+  console.log('current value of rootScope.savedArticleJSON: '+JSON.stringify($rootScope.savedArticlesJSON));
 
   //Delete All Articles
   $scope.showConfirm = function() {
@@ -299,20 +267,20 @@ angular.module('starter.controllers', [])
         //delete all physical files
         //TODO add file delete service
         //change isDownloaded value for all articles in currentIssue
-        angular.forEach($scope.currentIssueJSON, function(u, i){
+        angular.forEach($rootScope.currentIssueJSON, function(u, i){
             if (u.articleID){
               //change isDownloaded value
-              $scope.currentIssueJSON[i].isDownloaded = false;
+              $rootScope.currentIssueJSON[i].isDownloaded = false;
               //Save updated JSON file to localStorage
-              console.log('this article: '+$scope.currentIssueJSON[i].title+' updated - isDownloaded='+$scope.currentIssueJSON[i].isDownloaded);
+              console.log('this article: '+$rootScope.currentIssueJSON[i].title+' updated - isDownloaded='+$rootScope.currentIssueJSON[i].isDownloaded);
 
             }
         });
         //Update local storage with currentIssueJSON - now isDownloaded is false for all articles
-        window.localStorage['localCurrentIssue'] = JSON.stringify($scope.currentIssueJSON);
+        window.localStorage['localCurrentIssue'] = JSON.stringify($rootScope.currentIssueJSON);
         //reset localSavedArticles array
         window.localStorage['localSavedArticles'] = '[{"issueDates" : [], "displayDates" : []}]';
-        $scope.localSavedArticlesJSON = JSON.parse(window.localStorage['localSavedArticles'] || '{}');
+        $rootScope.savedArticlesJSON = JSON.parse(window.localStorage['localSavedArticles'] || '[{"issueDates" : [], "displayDates" : []}]');
       } else {
         console.log('Cancel, do not delete');
       }
@@ -326,7 +294,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('SavedIssueArticleCtrl', function($scope, $http, $stateParams, FileService) {
+.controller('SavedIssueArticleCtrl', function($rootScope, $scope, $http, $stateParams, FileService) {
   console.log('SavedIssueArticleCtrl started...');
 
   //Pass article URL data to the ng-include for currentIssue-article.html
@@ -352,7 +320,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('SettingsCtrl', function($scope, $ionicPopup) {
+.controller('SettingsCtrl', function($rootScope, $scope, $ionicPopup) {
   console.log('SavedIssueArticleCtrl started...');
 
   //Delete All Articles
@@ -368,13 +336,13 @@ angular.module('starter.controllers', [])
         //delete all physical files
         //TODO add file delete service
         //change isDownloaded value for all articles in currentIssue
-        angular.forEach($scope.currentIssueJSON, function(u, i){
+        angular.forEach($rootScope.currentIssueJSON, function(u, i){
           if (u.articleID){
             //change isDownloaded value
-            $scope.currentIssueJSON[i].isDownloaded = false;
+            $rootScope.currentIssueJSON[i].isDownloaded = false;
             //Save updated JSON file to localStorage
-            console.log('this article: '+$scope.currentIssueJSON[i].title+' IS no longer downloaded.');
-            window.localStorage['localCurrentIssue'] = JSON.stringify($scope.currentIssueJSON);
+            console.log('this article: '+$rootScope.currentIssueJSON[i].title+' IS no longer downloaded.');
+            window.localStorage['localCurrentIssue'] = JSON.stringify($rootScope.currentIssueJSON);
           }
         });
         //reset localSavedArticles array

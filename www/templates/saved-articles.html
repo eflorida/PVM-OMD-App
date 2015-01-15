@@ -10,7 +10,7 @@
 				</div>
 				<ion-item
 					class="item"
-					ng-repeat="articleSet in savedArticlesJSON | filter : issueDate : 201412"
+					ng-repeat="articleSet in savedArticlesJSON | filter : issueDate : 201412 track by articleSet.articleID"
 					href="#/app/savedissue-article/{{articleSet.issueYear}}/{{articleSet.issueMonth}}/{{articleSet.fileName}}/{{articleSet.articleID}}"
 				>
 					<h4>{{articleSet.title}}</h4>
@@ -42,11 +42,12 @@
 			<h3>No Saved Articles at this time</h3>
 			<p>Go to the current issue and click "Save" when viewing an article to save for offline reading.</p>
 
+			<!--TODO add button to navigate to current issue??
 			<ion-item nav-clear class="nav-clear" href="#/app/currentissue">
 				<button
 						class="button button-block button-positive"
 						>Current Issue</button>
-			</ion-item>
+			</ion-item>-->
 		</div>
 
 		<button
