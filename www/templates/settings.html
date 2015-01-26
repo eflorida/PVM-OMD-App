@@ -1,11 +1,11 @@
-<div class="modal">
+<div class="modal" ng-controller="SavedArticlesCtrl">
   <ion-header-bar>
     <h1 class="title">Settings</h1>
     <div class="buttons">
       <button class="button button-clear" ng-click="closeSettings()">Close</button>
     </div>
   </ion-header-bar>
-  <ion-content ng-controller="SavedArticlesCtrl">
+  <ion-content>
     <div
             class="card"
             ng-show="localSavedArticlesJSON[0].issueDates.length < 1">

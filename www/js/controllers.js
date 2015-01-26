@@ -281,6 +281,8 @@ angular.module('starter.controllers', [])
         //reset localSavedArticles array
         window.localStorage['localSavedArticles'] = '[{"issueDates" : [], "displayDates" : []}]';
         $rootScope.savedArticlesJSON = JSON.parse(window.localStorage['localSavedArticles'] || '[{"issueDates" : [], "displayDates" : []}]');
+        //close the modal dialog
+        $scope.closeSettings();
       } else {
         console.log('Cancel, do not delete');
       }
@@ -348,6 +350,7 @@ angular.module('starter.controllers', [])
         //reset localSavedArticles array
         window.localStorage['localSavedArticles'] = '[{"issueDates" : [], "displayDates" : []}]';
         $scope.savedArticlesJSON = JSON.parse(window.localStorage['localSavedArticles'] || '[{"issueDates" : [], "displayDates" : []}]');
+        //close the modal dialog
       } else {
         console.log('Cancel, do not delete');
       }
